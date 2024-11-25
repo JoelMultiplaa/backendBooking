@@ -16,10 +16,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Booking {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Primærnøgle
+    private Long orderId; // Primærnøgle
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
@@ -27,12 +27,6 @@ public class Booking {
     @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime localTime;
 
-    @OneToMany(mappedBy = "booking")
-    private List<Customer> customers;
-
-    @OneToMany(mappedBy = "booking")
-    private List<Admin> admins;
-
-    @OneToMany(mappedBy = "booking")
-    private List<Orderline> orders;
+    @OneToMany(mappedBy = "order")
+    private List<Orderline> orderlines;
 }

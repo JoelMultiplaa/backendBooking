@@ -14,10 +14,10 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Primærnøgle
+    private Long serviceId; // Primærnøgle
 
     private String description;
     private String name;

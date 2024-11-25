@@ -14,14 +14,14 @@ import lombok.Setter;
 public class Orderline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    private Long orderlineId;
     private Long quantity;
 
     @ManyToOne
-    @JoinColumn(name = "booking_id")
-    private Booking booking;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @JoinColumn(name = "service_id")
+    private Service service;
 }

@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
@@ -16,13 +14,13 @@ import java.util.List;
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Primærnøgle
+    private Long adminId; // Primærnøgle
 
     private String name;
     private String email;
     private String password;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "booking_id")
-    private Booking booking;
+    private Order booking;
 }

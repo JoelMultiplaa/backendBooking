@@ -16,7 +16,7 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Primærnøgle
+    private Long customerId; // Primærnøgle
 
     private String email;
     private String phoneNumber;
@@ -26,5 +26,5 @@ public class Customer {
 
     @ManyToOne
     @JoinColumn(name = "booking_id")
-    private Booking booking;
+    private Order booking;
 }
