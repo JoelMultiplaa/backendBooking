@@ -22,13 +22,12 @@ public class OrderlineController {
     @GetMapping("/{id}")
     public ResponseEntity<GenericResponse<?>> getOrderLineById(@PathVariable Long orderLineId) {
         return orderlineService.getOrderlineById(orderLineId)
-                .map(orderline -> ResponseEntity.ok(
-                        new GenericResponse<?>(200,"message",orderline)))
+                .<ResponseEntity<GenericResponse<?>>>map(orderline -> ResponseEntity.ok(new GenericResponse<>(200, "Orderline found", orderline)))
                 .orElseGet(() -> ResponseEntity
                         .status(HttpStatus.NO_CONTENT)
-                        .body(new GenericResponse<?>(200,"message",null)));
-
+                        .body(new GenericResponse<>(204, "No Bookings Found", null)));
     }
+
 
 
 
