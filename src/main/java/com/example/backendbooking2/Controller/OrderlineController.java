@@ -20,12 +20,13 @@ public class OrderlineController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getOrderLineById(@PathVariable Long orderLineId) {
+    public ResponseEntity<GenericResponse<?>> getOrderLineById(@PathVariable Long orderLineId) {
         return orderlineService.getOrderlineById(orderLineId)
-                .map(orderline -> ResponseEntity.ok(new GenericResponse<>(200,"message",orderline)))
+                .map(orderline -> ResponseEntity.ok(
+                        new GenericResponse<?>(200,"message",orderline)))
                 .orElseGet(() -> ResponseEntity
                         .status(HttpStatus.NO_CONTENT)
-                        .body(new GenericResponse<>(200,"message",null));
+                        .body(new GenericResponse<?>(200,"message",null)));
 
     }
 
