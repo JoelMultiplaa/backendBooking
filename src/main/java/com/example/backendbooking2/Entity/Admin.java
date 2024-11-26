@@ -20,7 +20,7 @@ public class Admin {
     private String email;
     private String password;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "booking_id")
-    private Order booking;
+    private Order order;
 }

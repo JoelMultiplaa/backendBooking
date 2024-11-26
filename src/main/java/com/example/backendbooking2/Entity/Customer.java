@@ -26,5 +26,5 @@ public class Customer {
 
     @ManyToOne
     @JoinColumn(name = "booking_id")
-    private Order booking;
+    private Order order;
 }
