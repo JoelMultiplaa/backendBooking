@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -17,6 +18,8 @@ public class ProductService {
         this.serviceRepository = serviceRepository;
     }
 
+
+
     // CREATE: Opretter en ny service
     public Optional<Product> createProductService(Product product) {
         /*return Optional.ofNullable(service)
@@ -26,34 +29,35 @@ public class ProductService {
         return createProduct ;
     }
 
-    // READ - Hent alle services
-    public Optional<List<?>> getAllProductServices() {
+   /* // READ - Hent alle services
+    public Optional<List<?>> getAllProductName() {
+
         // Henter alle services fra databasen og returnerer dem som en liste
         List<Product> productList = serviceRepository.findAll();
 
         return Optional.of(productList); // Returnerer listen direkte uden at pakke den i Optional
+    }*/
+
+    // READ - Hent alle services
+    public Optional<List<?>> getAllProductName() {
+        return Optional.ofNullable( // ændre til ".of()" hvis den returnerer en liste
+                serviceRepository.findAll().stream()
+                        .map(Product::getName)
+                        .collect(Collectors.toList())
+        );
     }
 
+
+
     // READ - Hent service baseret på ID
-    public Optional<?> getProductServicesById(Long serviceId) {
-        // Forsøger at finde en service med det givne serviceId
-        Optional<Product> product = serviceRepository.findById(serviceId);
-        return product;
-               /* .orElseThrow(() -> new RuntimeException("Service not found")); // Kaster undtagelse hvis service ikke findes*/
+    public Optional<Product> getProductServicesById(Long serviceId) {
+        return Optional.ofNullable(serviceId) // Håndterer potentielt null serviceId
+                .map(id -> serviceRepository.findById(id)) // Finder produktet baseret på id
+                .orElse(Optional.empty()); // Returnerer tom Optional, hvis serviceId er null
     }
-public int add()
-{int ab=1+2;
-    return ab;}
+
     // UPDATE - Opdaterer en eksisterende service
     public Optional<?> updateProductService(Long serviceId, Product updatedProduct) {
-        /*return serviceRepository.findById(serviceId)
-                .map(existingService -> {
-                    // Hvis fundet, opdaterer de relevante felter i den eksisterende service
-                    existingService.setName(updatedService.getName());
-                    existingService.setDescription(updatedService.getDescription());
-                    return serviceRepository.save(existingService); // Gemmer den opdaterede service og returnerer den
-                })
-                .orElseThrow(() -> new RuntimeException("Service not found"));*/
         Optional<Product> updatingService=serviceRepository.findById(serviceId);
         updatingService.map(exsist->{
                 updatedProduct.setName(exsist.getName());
