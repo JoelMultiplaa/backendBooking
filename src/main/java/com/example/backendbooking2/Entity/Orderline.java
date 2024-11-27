@@ -23,5 +23,5 @@ public class Orderline {
 
     @ManyToOne
     @JoinColumn(name = "service_id")
-    private Service service;
+    private Product product;
 }
