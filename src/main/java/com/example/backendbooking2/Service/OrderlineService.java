@@ -23,10 +23,6 @@ public class OrderlineService {
                 .orElseThrow( () -> new RuntimeException("Invalid Orderline data"));
     }
 
-    /** Henter Alle OrderLines,
-     * Ikke nødvendig til kunden men admin og hvis man laver en User login.
-     * @return En liste af orderlister. */
-
     //Henter alle order linjerne
     public Optional<List<Orderline>> getAllOrderline(){
         List<Orderline> ordersList = orderlineRepository.findAll();
@@ -38,8 +34,6 @@ public class OrderlineService {
         return Optional.ofNullable(orderlineRepository.findById(orderlineId)
                 .orElseThrow(() -> new RuntimeException("Orderline not found")));
     }
-
-
 
 
     // Opdatere order linjen
@@ -54,9 +48,7 @@ public class OrderlineService {
                 .orElseThrow(() -> new RuntimeException("Orderline not found")));
     }
 
-    /**Sletter en orderline med den bestemte ID bliver brugt alle steder.
-     * @param orderlineId of the orderline to be deleted.*/
-    public void deleteOrderLinse(Long orderlineId)
+    public void deleteOrderline(Long orderlineId)
     {
         Optional<Orderline> orderlineById=orderlineRepository.findById(orderlineId);
         if (orderlineById.isPresent())
