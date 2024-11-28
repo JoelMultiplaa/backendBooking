@@ -22,29 +22,16 @@ public class ProductService {
 
     // CREATE: Opretter en ny service
     public Optional<Product> createProductService(Product product) {
-        /*return Optional.ofNullable(service)
-                .map(serviceRepository::save) // Gemmer service i databasen
-                .orElseThrow(() -> new RuntimeException("Invalid Service data"));*/ // Kaster undtagelse hvis service er null
         Optional<Product> createProduct = Optional.of(serviceRepository.save(product));
         return createProduct ;
     }
 
-   /* // READ - Hent alle services
-    public Optional<List<?>> getAllProductName() {
 
-        // Henter alle services fra databasen og returnerer dem som en liste
-        List<Product> productList = serviceRepository.findAll();
-
-        return Optional.of(productList); // Returnerer listen direkte uden at pakke den i Optional
-    }*/
 
     // READ - Hent alle services
-    public Optional<List<?>> getAllProductName() {
-        return Optional.ofNullable( // ændre til ".of()" hvis den returnerer en liste
-                serviceRepository.findAll().stream()
-                        .map(Product::getName)
-                        .collect(Collectors.toList())
-        );
+    public Optional<List<Product>> getAllProductNames() {
+        List<Product> productList = serviceRepository.findAll();
+        return Optional.of(productList.stream().toList());
     }
 
 
@@ -57,7 +44,7 @@ public class ProductService {
     }
 
     // UPDATE - Opdaterer en eksisterende service
-    public Optional<?> updateProductService(Long serviceId, Product updatedProduct) {
+    public Optional<Product> updateProductService(Long serviceId, Product updatedProduct) {
         Optional<Product> updatingService=serviceRepository.findById(serviceId);
         updatingService.map(exsist->{
                 updatedProduct.setName(exsist.getName());
