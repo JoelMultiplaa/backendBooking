@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orderline")
+
 public class Orderline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
