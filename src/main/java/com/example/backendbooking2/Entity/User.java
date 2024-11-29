@@ -11,10 +11,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Admin {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long adminId; // Primærnøgle
+    private Long userId; // Primærnøgle
 
     private String name;
     private String email;
