@@ -13,6 +13,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "available_time")
 public class AvailableTime {
 
 
@@ -25,6 +26,8 @@ public class AvailableTime {
 
     @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime localTime;
+
+    private boolean isBooked;
 
 
 }
