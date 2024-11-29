@@ -19,12 +19,11 @@ public class Orderline {
     private Long orderlineId;
 
     private int quantity;
-
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
     @ManyToOne
     @JoinColumn(name = "service_id", nullable = false)
-    private Product service;
+    private Product service; // Sørg for at bruge den korrekte klasse her
 }

@@ -40,8 +40,9 @@ public class OrderController {
                     createdOrder.getStartDate(),
                     createdOrder.getLocalTime(),
                     createdOrder.getOrderlines(),
-                    createdOrder.getCustomers(),
+                    createdOrder.getCustomer(),
                     "Order successfully created."
+
             );
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (RuntimeException e) {

@@ -30,11 +30,18 @@ public class Order {
     @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime localTime;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "available_times_id")
+    private AvailableTime availableTimes;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Orderline> orderlines = new ArrayList<>();
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Customer> customers = new ArrayList<>();
+
 
 
 
