@@ -12,17 +12,17 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-    private final ProductRepository serviceRepository;
+    private final ProductRepository productRepository;
 
     public ProductService(ProductRepository serviceRepository) {
-        this.serviceRepository = serviceRepository;
+        this.productRepository = serviceRepository;
     }
 
 
 
     // CREATE: Opretter en ny service
     public Optional<Product> createProductService(Product product) {
-        Optional<Product> createProduct = Optional.of(serviceRepository.save(product));
+        Optional<Product> createProduct = Optional.of(productRepository.save(product));
         return createProduct ;
     }
 
@@ -30,7 +30,7 @@ public class ProductService {
 
     // READ - Hent alle services
     public Optional<List<Product>> getAllProductNames() {
-        List<Product> productList = serviceRepository.findAll();
+        List<Product> productList = productRepository.findAll();
         return Optional.of(productList.stream().toList());
     }
 
@@ -39,26 +39,29 @@ public class ProductService {
     // READ - Hent service baseret på ID
     public Optional<Product> getProductServicesById(Long serviceId) {
         return Optional.ofNullable(serviceId) // Håndterer potentielt null serviceId
-                .map(id -> serviceRepository.findById(id)) // Finder produktet baseret på id
+                .map(id -> productRepository.findById(id)) // Finder produktet baseret på id
                 .orElse(Optional.empty()); // Returnerer tom Optional, hvis serviceId er null
     }
 
+
+
     // UPDATE - Opdaterer en eksisterende service
-    public Optional<Product> updateProductService(Long serviceId, Product updatedProduct) {
-        Optional<Product> updatingService=serviceRepository.findById(serviceId);
-        updatingService.map(exsist->{
-                updatedProduct.setName(exsist.getName());
-                updatedProduct.setDescription(exsist.getDescription());
-                return updatedProduct;
-                })
-                .orElseThrow(()-> new RuntimeException("Product not found"));
-        return Optional.empty();
+    public Product updateProduct(Long productId, Product updatedProduct) {
+        Product existingPrduct = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product with ID " + productId + " not found"));
+
+        existingPrduct.setImageURL(updatedProduct.getImageURL());
+        existingPrduct.setName(updatedProduct.getName());
+        existingPrduct.setDescription(updatedProduct.getDescription());
+
+        return productRepository.save(existingPrduct);
     }
 
     // DELETE - Sletter en service baseret på ID
-    public void deleteService(Long serviceId) {
-        serviceRepository.findById(serviceId)
-                .ifPresentOrElse(product -> serviceRepository.deleteById(serviceId),
-                        () -> { throw new RuntimeException("Service not found"); }); // Bruger ifPresentOrElse til at slette eller kaste undtagelse
+    public void deleteProduct(Long Id) {
+        if (!productRepository.existsById(Id)){
+            throw new RuntimeException("Product with ID " + Id + " not found");
+        }
+        productRepository.deleteById(Id);
     }
 }

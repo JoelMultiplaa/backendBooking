@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/v1/")
+@RequestMapping("api/product")
 public class ProductController {
     private final ProductService productService;
 
@@ -42,14 +42,13 @@ public class ProductController {
     // UPDATE: Opdaterer en eksisterende service
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
-        productService.updateProductService(id, updatedProduct);
+        productService.updateProduct(id, updatedProduct);
         return ResponseEntity.noContent().build();
     }
 
     // DELETE: Sletter en service baseret på ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long serviceId) {
-        productService.deleteService(serviceId);
-        return ResponseEntity.noContent().build();
+    public void deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
     }
 }
