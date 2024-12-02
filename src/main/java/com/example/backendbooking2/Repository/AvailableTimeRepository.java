@@ -4,9 +4,7 @@ import com.example.backendbooking2.Entity.AvailableTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 
 
 public interface AvailableTimeRepository extends JpaRepository<AvailableTime, Long> {

@@ -2,7 +2,6 @@ package com.example.backendbooking2.Service;
 
 import com.example.backendbooking2.Entity.Product;
 import com.example.backendbooking2.Repository.ProductRepository;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
