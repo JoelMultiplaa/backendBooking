@@ -61,10 +61,10 @@ public class OrderController {
     }
 
     // Opdaterer en order efter ID
-    @PutMapping("/{orderID}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Long orderID, @RequestBody Order updatedOrder){
+    @PutMapping("/{Id}")
+    public ResponseEntity<Order> updateOrder(@PathVariable Long Id, @RequestBody Order updatedOrder){
         try{
-            Order order = orderService.updateOrderId(orderID, updatedOrder);
+            Order order = orderService.updateOrderId(Id, updatedOrder);
             return ResponseEntity.ok(order);
         }catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -72,10 +72,10 @@ public class OrderController {
     }
 
     // Sletter en order efter ID
-    @DeleteMapping("/{orderId}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Long orderid){
+    @DeleteMapping("/{Id}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long Id){
         try {
-            orderService.deleteOrder(orderid);
+            orderService.deleteOrder(Id);
             return ResponseEntity.noContent().build();
 
         } catch (RuntimeException e){

@@ -8,8 +8,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 
-
+@Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-
-    boolean existsByStartDateAndLocalTime(LocalDate startData, LocalTime localTime);
 }

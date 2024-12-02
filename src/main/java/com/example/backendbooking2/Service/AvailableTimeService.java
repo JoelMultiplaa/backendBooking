@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -18,8 +17,8 @@ public class AvailableTimeService {
         this.availableTimeRepository = availableTimeRepository;
     }
 
-    public List<AvailableTime> getAllAvailableTime(){
-        return availableTimeRepository.findAll();
+    public List<AvailableTime> getAllAvailableTime(LocalDate date){
+        return availableTimeRepository.findAllByAvailableDate(date);
     }
 
 
@@ -31,8 +30,9 @@ public class AvailableTimeService {
         AvailableTime existingAvailableTime = availableTimeRepository.findById(id)
                 .orElseThrow( () -> new RuntimeException("availableTime with ID " + id + " not found"));
 
-        existingAvailableTime.setStartDate(updateAvailableTime.getStartDate());
-        existingAvailableTime.setLocalTime(updateAvailableTime.getLocalTime());
+        existingAvailableTime.setAvailableDate(updateAvailableTime.getAvailableDate());
+        existingAvailableTime.setStartTime(updateAvailableTime.getStartTime());
+        existingAvailableTime.setEndTime(updateAvailableTime.getEndTime());
 
         return availableTimeRepository.save(existingAvailableTime);
     }
@@ -42,11 +42,11 @@ public class AvailableTimeService {
             throw new RuntimeException("availableTime with ID " + availableTimeId + " not found");
         }
         availableTimeRepository.deleteById(availableTimeId);
-    }
+        }
 
     // Metode til at tjekke, om en given tid er tilgængelig
-    public boolean isTimeAvailable(LocalDate startDate, LocalTime localTime) {
-        return !availableTimeRepository.existsByDateAndStartTime(startDate,localTime);
+   public boolean isTimeAvailable(LocalDate date) {
+    return !availableTimeRepository.existsByAvailableDate(date);
     }
 
 

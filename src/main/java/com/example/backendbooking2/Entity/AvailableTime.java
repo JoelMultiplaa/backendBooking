@@ -21,13 +21,16 @@ public class AvailableTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long availableTimeId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startDate;
+    @Column(name = "date")
+    private LocalDate  availableDate;
 
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private LocalTime localTime;
 
+    @Column(name = "startTime")
+    private LocalTime startTime;
+
+    @Column(name = "endTime")
+    private LocalTime endTime;
+
+    @Column(name = "booked")
     private boolean isBooked;
-
-
 }

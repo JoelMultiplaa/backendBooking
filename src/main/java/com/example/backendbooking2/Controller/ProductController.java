@@ -2,11 +2,12 @@ package com.example.backendbooking2.Controller;
 
 import com.example.backendbooking2.Entity.Product;
 import com.example.backendbooking2.Service.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-import java.util.List;
+
 
 @RestController
 @CrossOrigin("*")
@@ -21,29 +22,23 @@ public class ProductController {
     // CREATE: Opretter en ny service
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Optional<Product> createdProduct = productService.createProductService(product);
-        return ResponseEntity.status(201).body(createdProduct.orElseThrow(() -> new RuntimeException("Failed to create product")));
-    }
-
-    // READ: Hent alle services
-    @GetMapping
-    public ResponseEntity<List<Product>> getAllProductNames() {
-        Optional<List<Product>> productNames = productService.getAllProductNames();
-        return ResponseEntity.ok(productNames.orElseThrow(() -> new RuntimeException("No products found")));
+        Product createdProduct = productService.createProductService(product);
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
     // READ: Hent service baseret på ID
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        Optional<Product> product = productService.getProductServicesById(id);
+        Optional<Product> product = productService.getAllProductById(id);
         return ResponseEntity.of(product);
     }
 
     // UPDATE: Opdaterer en eksisterende service
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
-        productService.updateProduct(id, updatedProduct);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+
+        Product updateProduct = productService.updateProduct(id, updatedProduct);
+        return new ResponseEntity<>(updateProduct, HttpStatus.CREATED);
     }
 
     // DELETE: Sletter en service baseret på ID

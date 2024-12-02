@@ -6,8 +6,6 @@ import com.example.backendbooking2.Entity.Orderline;
 import com.example.backendbooking2.Repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -29,7 +27,7 @@ public class OrderService {
 
     // Opretter en ny ordre
     public Order createOrder(Order order) {
-        if (!availableTimeService.isTimeAvailable(order.getStartDate(), order.getLocalTime())) {
+        if (!availableTimeService.isTimeAvailable(order.getStartDate())) {
             throw new RuntimeException("The selected time slot is already booked.");
         }
 
