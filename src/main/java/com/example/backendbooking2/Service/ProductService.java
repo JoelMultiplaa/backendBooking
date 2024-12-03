@@ -5,7 +5,7 @@ import com.example.backendbooking2.Repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 
-
+import java.util.List;
 import java.util.Optional;
 
 
@@ -23,6 +23,10 @@ public class ProductService {
     // CREATE: Opretter en ny service
     public Product createProductService(Product product) {
         return productRepository.save(product);
+    }
+
+    public List<Product> getAllProduct(){
+        return productRepository.findAll();
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.backendbooking2.DTO;
+/*package com.example.backendbooking2.DTO;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,4 +20,4 @@ public class LoginDto {
     @JsonIgnore
     private String password;
 
-}
+}*/

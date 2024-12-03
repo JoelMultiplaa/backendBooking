@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -19,6 +20,12 @@ public class ProductController {
         this.productService = productService;
 
     }
+    @GetMapping
+    public List<Product> getAllProducts(){
+        return productService.getAllProduct();
+    }
+
+
     // CREATE: Opretter en ny service
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
