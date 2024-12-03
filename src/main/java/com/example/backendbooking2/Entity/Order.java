@@ -28,6 +28,8 @@ public class Order {
     @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime localTime;
 
+    private String workShopLocation;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;

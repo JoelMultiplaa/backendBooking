@@ -53,6 +53,7 @@ public class OrderService {
 
         existingOrder.setStartDate(updateOrder.getStartDate());
         existingOrder.setLocalTime(updateOrder.getLocalTime());
+        existingOrder.setWorkShopLocation(existingOrder.getWorkShopLocation());
 
         // Opdaterer ordrelinjer
         existingOrder.getOrderlines().clear(); // Fjern eksisterende orderlines
