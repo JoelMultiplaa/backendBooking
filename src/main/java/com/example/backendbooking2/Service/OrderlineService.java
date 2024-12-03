@@ -13,7 +13,7 @@ public class OrderlineService {
     private final OrderlineRepository orderlineRepository;
 
     public OrderlineService(OrderlineRepository orderlineRepository){
-    this.orderlineRepository = orderlineRepository;
+        this.orderlineRepository = orderlineRepository;
     }
 
     // Opretter orderline
