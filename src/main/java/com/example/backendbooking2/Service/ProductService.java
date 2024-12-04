@@ -30,13 +30,13 @@ public class ProductService {
      */
     public List<Product> getAllProductsByAlphabet(Long alpha){
         List<Product> sortProducts = productRepository.findAll();
-        if (Integer.valueOf(1).equals(alpha)) {
+        if (Long.valueOf(1).equals(alpha)) {
            return sortProducts
                             .stream()
                             .sorted(Comparator.comparing(Product::getName)) //NOTE: This is for sorting products by name.
                             .toList();
         }
-        if (Integer.valueOf(0).equals(alpha)){
+        if (Long.valueOf(0).equals(alpha)){
 
             return sortProducts
                     .stream()
