@@ -36,7 +36,7 @@ public class ProductController {
     // READ: Hent service baseret på ID
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        Optional<Product> product = productService.getAllProductById(id);
+        Optional<Product> product = productService.getProductById(id);
         return ResponseEntity.of(product);
     }
 

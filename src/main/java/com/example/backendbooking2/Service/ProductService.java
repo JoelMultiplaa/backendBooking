@@ -1,5 +1,8 @@
 package com.example.backendbooking2.Service;
 
+
+import java.util.Comparator;
+import java.util.List;
 import com.example.backendbooking2.Entity.Product;
 import com.example.backendbooking2.Repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -18,8 +21,31 @@ public class ProductService {
         this.productRepository = serviceRepository;
     }
 
+    /**To Sort Product By Order Type.
+     * @param alpha
+     *              1 is for alphabeticly ordered,
+ *                  0 is for reversed-alphabeticly ordered,
+ *                  other (or null) is for natural order.
+     * @return Sorted by the type of input.
+     */
+    public List<Product> getAllProductsByAlphabet(Integer alpha){
+        List<Product> sortProducts = productRepository.findAll();
+        if (Integer.valueOf(1).equals(alpha)) {
+           return sortProducts
+                            .stream()
+                            .sorted(Comparator.comparing(Product::getName)) //NOTE: This is for sorting products by name.
+                            .toList();
+        }
+        if (Integer.valueOf(0).equals(alpha)){
 
-
+            return sortProducts
+                    .stream()
+                    .sorted(Comparator.comparing(Product::getName))//NOTE: This is for sorting products by name.
+                    .toList()
+                    .reversed();
+        }
+            return sortProducts;
+    }
     // CREATE: Opretter en ny service
     public Product createProductService(Product product) {
         return productRepository.save(product);
@@ -29,10 +55,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-
-
     // READ - Hent alle product baseret på ID
-    public Optional<Product> getAllProductById(Long id) {
+    public Optional<Product> getProductById(Long id) {
         return productRepository.findById(id);
     }
 
