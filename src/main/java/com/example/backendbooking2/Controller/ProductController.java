@@ -20,9 +20,9 @@ public class ProductController {
         this.productService = productService;
 
     }
-    @GetMapping
-    public List<Product> getAllProducts(){
-        return productService.getAllProduct();
+    @GetMapping("{id}")
+    public List<Product> getAllProducts(@PathVariable Integer id){
+        return productService.getAllProductsByAlphabet(id);
     }
 
 

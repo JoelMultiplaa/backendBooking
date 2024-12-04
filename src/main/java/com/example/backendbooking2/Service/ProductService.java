@@ -51,9 +51,6 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public List<Product> getAllProduct(){
-        return productRepository.findAll();
-    }
 
     // READ - Hent alle product baseret på ID
     public Optional<Product> getProductById(Long id) {
