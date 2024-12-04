@@ -25,6 +25,6 @@ public class Customer {
     private String licensePlate;
 
     @ManyToOne
-    @JoinColumn(name = "booking_id")
+    @JoinColumn(name = "order_id")
     private Order order;
 }
