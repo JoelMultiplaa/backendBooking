@@ -41,7 +41,7 @@ class ProductServiceTest {
     void getAllProductsByAlphabetically() {
         when(repository.findAll()).thenReturn(fakeProducts());
         System.out.println("Alphabeticly Ordered");
-        List<Product> sortedProduct = product.getAllProductsByAlphabet(1);
+        List<Product> sortedProduct = product.getAllProductsByAlphabet(1L);
         sortedProduct.forEach(product-> System.out.println("Product: "+product.getName()+"\n"));
 
         assertEquals("a 1",sortedProduct.get(0).getName());
@@ -56,7 +56,7 @@ class ProductServiceTest {
         when(repository.findAll()).thenReturn(fakeProducts());
         System.out.println("Reversed Ordering");
         // Act
-        List<Product> sortedProducts = product.getAllProductsByAlphabet(0);
+        List<Product> sortedProducts = product.getAllProductsByAlphabet(0L);
         sortedProducts.forEach(product-> System.out.println("Product: "+product.getName()+"\n"));
 
         // Assert
