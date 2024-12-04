@@ -28,7 +28,7 @@ public class ProductService {
  *                  other (or null) is for natural order.
      * @return Sorted by the type of input.
      */
-    public List<Product> getAllProductsByAlphabet(Integer alpha){
+    public List<Product> getAllProductsByAlphabet(Long alpha){
         List<Product> sortProducts = productRepository.findAll();
         if (Integer.valueOf(1).equals(alpha)) {
            return sortProducts

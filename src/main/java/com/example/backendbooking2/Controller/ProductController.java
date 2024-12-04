@@ -20,8 +20,8 @@ public class ProductController {
         this.productService = productService;
 
     }
-    @GetMapping("{id}")
-    public List<Product> getAllProducts(@PathVariable Integer id){
+    @GetMapping("/all/{id}")
+    public List<Product> getAllProducts(@PathVariable Long id){
         return productService.getAllProductsByAlphabet(id);
     }
 
@@ -41,7 +41,7 @@ public class ProductController {
     }
 
     // UPDATE: Opdaterer en eksisterende service
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
 
         Product updateProduct = productService.updateProduct(id, updatedProduct);
@@ -49,7 +49,7 @@ public class ProductController {
     }
 
     // DELETE: Sletter en service baseret på ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
     }
