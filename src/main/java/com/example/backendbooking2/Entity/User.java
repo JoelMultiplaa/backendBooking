@@ -5,12 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "user")
-public class User {
+public class User {//this is employee/admin
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId; // Primærnøgle
@@ -19,7 +22,6 @@ public class User {
     private String email;
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "booking_id")
-    private Order order;
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Order> order = new ArrayList<>();
 }

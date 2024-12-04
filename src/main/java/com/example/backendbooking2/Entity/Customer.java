@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,6 @@ public class Customer {
     private String name;
     private String licensePlate;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @OneToMany(mappedBy = "order_id",fetch = FetchType.EAGER)
+    private List<Order> order = new ArrayList<>();
 }

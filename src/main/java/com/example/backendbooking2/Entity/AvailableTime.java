@@ -33,4 +33,7 @@ public class AvailableTime {
 
     @Column(name = "booked")
     private boolean isBooked;
+
+    @OneToOne(mappedBy = "available_time", fetch = FetchType.EAGER)
+    private Order order;
 }

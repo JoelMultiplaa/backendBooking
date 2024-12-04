@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -17,11 +19,9 @@ public class Orderline {
     private Long orderlineId;
 
     private int quantity;
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @OneToOne(mappedBy = "orderline",fetch = FetchType.EAGER)
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "service_id", nullable = false)
-    private Product service; // Sørg for at bruge den korrekte klasse her
+    @OneToMany(mappedBy = "orderline",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Product> products; // Sørg for at bruge den korrekte klasse her
 }
