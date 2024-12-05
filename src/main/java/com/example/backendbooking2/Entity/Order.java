@@ -20,30 +20,23 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId; // Primærnøgle
+    private Long orderId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startDate;
-
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private LocalTime localTime;
-
+    private LocalDate date;
+    private LocalTime time;
     private boolean isBooked;
 
-    private String workShopLocation;
+    @Column(name = "workshop_location")
+    private Location workshopLocation;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
-
-
-    @OneToOne(mappedBy = "orders", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "orderline_id")
-    private Orderline orderline;
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    private List<Orderline> orderLines;
 }

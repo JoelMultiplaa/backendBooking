@@ -17,14 +17,9 @@ public class OrderlineService {
     }
 
     // Opretter orderline
-    public Optional<Orderline> createOrderline(Orderline orderlineId){
-       Optional<Orderline> createOrderline = orderlineRepository.findById(orderlineId);
-        if (createOrderline.isPresent()) {
-            Orderline orderline = createOrderline.get();
-            return Optional.of(orderlineRepository.save(orderline));
-        } else {
-            return Optional.empty();
-        }
+    public  Orderline createOrderline(Orderline orderline){
+       Orderline createOrderline = orderlineRepository.save(orderline);
+       return orderlineRepository.save(createOrderline);
     }
 
     //Henter alle order linjerne
@@ -46,8 +41,8 @@ public class OrderlineService {
               .orElseThrow(() -> new RuntimeException("Orderline not found" + orderlineId));
 
       existOrderLine.setQuantity(updatedOrderline.getQuantity());
-      existOrderLine.setOrder(updatedOrderline.getOrder());
-      existOrderLine.setProducts(updatedOrderline.getProducts());
+      existOrderLine.setOrders(updatedOrderline.getOrders());
+      existOrderLine.setProduct(updatedOrderline.getProduct());
 
       return orderlineRepository.save(existOrderLine);
 

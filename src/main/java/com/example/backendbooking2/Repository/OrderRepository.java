@@ -10,11 +10,5 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    boolean existsByAvailableDate(LocalDate availableDate);
-
-
-    // Finder en specifik tilgængelig tid baseret på dato og starttid
-    List<Order> findAllByAvailableDate(LocalDate availableDate);
 }
-
 

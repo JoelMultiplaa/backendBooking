@@ -16,13 +16,13 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId; // Primærnøgle
-    private String imageURL;
+    private Long productId;
+
     private String description;
     private String name;
-    @Enumerated(EnumType.STRING)
-    private Category category;
+    private String imageURL;
+    private String category;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
-    private List<Orderline> orderline;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Orderline> orderlines;
 }

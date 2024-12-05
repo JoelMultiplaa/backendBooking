@@ -32,7 +32,7 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody Order order){
         Order createOrder = orderService.createOrder(order);
-        return ResponseEntity.status(createOrder, HttpStatus.CREATED);
+        return ResponseEntity.ok(createOrder);
     }
 
     // Opdaterer en order efter ID

@@ -22,7 +22,7 @@ public class OrderlineController {
     @PostMapping
     public Orderline createOrderline(@RequestBody Orderline orderline) {
         Orderline createOrderline = orderlineService.createOrderline(orderline);
-        return createOrderline;
+        return orderlineService.createOrderline(createOrderline);
     }
 
     // Henter alle orderlines

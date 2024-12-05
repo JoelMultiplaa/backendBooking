@@ -16,13 +16,15 @@ import java.util.List;
 public class Orderline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderlineId;
+    private Long orderLineId;
 
     private int quantity;
-    @OneToOne(mappedBy = "orderline",fetch = FetchType.EAGER)
-    private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order orders;
+
+    @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product products; // Sørg for at bruge den korrekte klasse her
+    private Product product;
 }

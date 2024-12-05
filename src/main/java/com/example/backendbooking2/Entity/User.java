@@ -16,12 +16,13 @@ import java.util.List;
 public class User {//this is employee/admin
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId; // Primærnøgle
+    private Long userId;
 
     private String name;
     private String email;
     private String password;
+    private String role; // admin/employee
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-    private List<Order> order = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Order> orders;
 }
