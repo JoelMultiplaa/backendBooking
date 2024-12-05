@@ -31,24 +31,14 @@ public class OrderService {
 
     // opdatere order efter id
     public Order updateOrderId(Long orderId, Order updateOrder) {
-        Order existingOrder = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order with ID " + orderId + " not found"));
+        Order existOrder = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Unavailable to updtae order id " + orderId));
 
-        existingOrder.setStartDate(updateOrder.getStartDate());
-        existingOrder.setLocalTime(updateOrder.getLocalTime());
-        existingOrder.setWorkShopLocation(existingOrder.getWorkShopLocation());
+        existOrder.setStartDate(updateOrder.getStartDate());
+        existOrder.setLocalTime(updateOrder.getLocalTime());
+        existOrder.setWorkShopLocation(updateOrder.getWorkShopLocation());
 
-        // Opdaterer ordrelinjer
-        existingOrder.getOrderlines().clear(); // Fjern eksisterende orderlines
-        for (Orderline orderline : updateOrder.getOrderlines()) {
-            orderline.setOrder(existingOrder); // Sæt relationen til den eksisterende ordre
-        }
-        existingOrder.getOrderlines().addAll(updateOrder.getOrderlines()); // Tilføj nye orderlines
-
-        // Opdaterer kunden (hvis der kun er én)
-        existingOrder.setCustomer(updateOrder.getCustomer()); // Opdater eksisterende kunde
-
-        return orderRepository.save(existingOrder);
+        return orderRepository.save(existOrder);
     }
 
 

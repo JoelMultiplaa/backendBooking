@@ -17,16 +17,20 @@ public class OrderlineService {
     }
 
     // Opretter orderline
-    public Orderline createOrderline(Orderline orderline){
-        return Optional.ofNullable(orderline)
-                .map(orderlineRepository::save)
-                .orElseThrow( () -> new RuntimeException("Invalid Orderline data"));
+    public Optional<Orderline> createOrderline(Orderline orderlineId){
+       Optional<Orderline> createOrderline = orderlineRepository.findById(orderlineId);
+        if (createOrderline.isPresent()) {
+            Orderline orderline = createOrderline.get();
+            return Optional.of(orderlineRepository.save(orderline));
+        } else {
+            return Optional.empty();
+        }
     }
 
     //Henter alle order linjerne
-    public Optional<List<Orderline>> getAllOrderline(){
+    public List<Orderline> getAllOrderline(){
         List<Orderline> ordersList = orderlineRepository.findAll();
-        return Optional.of(ordersList.stream().toList());
+        return ordersList;
     }
 
     //Henter alle order linjerne af id
@@ -37,15 +41,16 @@ public class OrderlineService {
 
 
     // Opdatere order linjen
-    public Optional<Orderline> updateOrderline(Long orderlineId, Orderline updatedOrderline){
-        return Optional.of(orderlineRepository.findById(orderlineId)
-                .map(existingOrderline -> {
-                    existingOrderline.setQuantity(updatedOrderline.getQuantity());
-                    existingOrderline.setService(updatedOrderline.getService());
-                    existingOrderline.setOrder(updatedOrderline.getOrder());
-                    return orderlineRepository.save(existingOrderline);
-                })
-                .orElseThrow(() -> new RuntimeException("Orderline not found")));
+    public Orderline updateOrderline(Long orderlineId, Orderline updatedOrderline){
+      Orderline existOrderLine = orderlineRepository.findById(orderlineId)
+              .orElseThrow(() -> new RuntimeException("Orderline not found" + orderlineId));
+
+      existOrderLine.setQuantity(updatedOrderline.getQuantity());
+      existOrderLine.setOrder(updatedOrderline.getOrder());
+      existOrderLine.setProducts(updatedOrderline.getProducts());
+
+      return orderlineRepository.save(existOrderLine);
+
     }
 
     public void deleteOrderline(Long orderlineId)
