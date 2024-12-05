@@ -20,8 +20,9 @@ public class Product {
     private String imageURL;
     private String description;
     private String name;
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="orderline_id")
-    private Orderline orderline;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    private List<Orderline> orderline;
 }

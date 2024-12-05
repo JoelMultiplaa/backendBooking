@@ -22,6 +22,7 @@ public class Orderline {
     @OneToOne(mappedBy = "orderline",fetch = FetchType.EAGER)
     private Order order;
 
-    @OneToMany(mappedBy = "orderline",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Product> products; // Sørg for at bruge den korrekte klasse her
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private Product products; // Sørg for at bruge den korrekte klasse her
 }

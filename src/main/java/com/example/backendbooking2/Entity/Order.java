@@ -28,6 +28,8 @@ public class Order {
     @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime localTime;
 
+    private boolean isBooked;
+
     private String workShopLocation;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -38,9 +40,6 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "available_times_id")
-    private AvailableTime availableTimes;
 
 
 
