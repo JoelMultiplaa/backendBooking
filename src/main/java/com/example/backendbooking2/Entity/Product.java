@@ -16,11 +16,13 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long serviceId; // Primærnøgle
-    private String imageURL;
+    private Long productId;
+
     private String description;
     private String name;
+    private String imageURL;
+    private String category;
 
-    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Orderline> orderlines = new ArrayList<>();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Orderline> orderlines;
 }

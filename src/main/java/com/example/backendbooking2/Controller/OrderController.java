@@ -2,6 +2,7 @@ package com.example.backendbooking2.Controller;
 
 import com.example.backendbooking2.DTO.OrderConfirmationResponse;
 import com.example.backendbooking2.Entity.Order;
+import com.example.backendbooking2.Repository.OrderRepository;
 import com.example.backendbooking2.Service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,35 +30,9 @@ public class OrderController {
 
     // Opretter en ny order
     @PostMapping
-    public ResponseEntity<OrderConfirmationResponse> createOrder(@RequestBody Order order){
-
-        try {
-            Order createdOrder = orderService.createOrder(order);
-
-            // Returner en bekræftelsesbesked med ordren
-            OrderConfirmationResponse response = new OrderConfirmationResponse(
-                    createdOrder.getOrderId(),
-                    createdOrder.getStartDate(),
-                    createdOrder.getLocalTime(),
-                    createdOrder.getOrderlines(),
-                    createdOrder.getCustomer(),
-                    "Order successfully created."
-
-            );
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (RuntimeException e) {
-            // Hvis der opstår en fejl, returneres en fejlmeddelelse
-            OrderConfirmationResponse errorResponse = new OrderConfirmationResponse(
-                    null, // Ingen ordreId
-                    null, // Ingen startdato
-                    null, // Ingen klokkeslæt
-                    null, // Ingen ordrelinjer
-                    null, // Ingen kunder
-                    "Failed to create order: " + e.getMessage()
-            );
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-        }
+    public ResponseEntity<Order> createOrder(@RequestBody Order order){
+        Order createOrder = orderService.createOrder(order);
+        return ResponseEntity.ok(createOrder);
     }
 
     // Opdaterer en order efter ID

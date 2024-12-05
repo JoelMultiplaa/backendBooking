@@ -15,29 +15,28 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "Orders")
+@Table(name = "orders")
 
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId; // Primærnøgle
+    private Long orderId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startDate;
+    private LocalDate date;
+    private LocalTime time;
+    private boolean isBooked;
 
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private LocalTime localTime;
+    @Column(name = "workshop_location")
+    private Location workshopLocation;
 
-    private String workShopLocation;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "available_times_id")
-    private AvailableTime availableTimes;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Orderline> orderlines = new ArrayList<>();
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    private List<Orderline> orderLines;
 }

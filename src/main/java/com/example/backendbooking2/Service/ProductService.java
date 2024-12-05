@@ -3,6 +3,8 @@ package com.example.backendbooking2.Service;
 
 import java.util.Comparator;
 import java.util.List;
+
+import com.example.backendbooking2.Entity.Category;
 import com.example.backendbooking2.Entity.Product;
 import com.example.backendbooking2.Repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -66,6 +68,7 @@ public class ProductService {
         existingProduct.setImageURL(updatedProduct.getImageURL());
         existingProduct.setName(updatedProduct.getName());
         existingProduct.setDescription(updatedProduct.getDescription());
+        existingProduct.setCategory(updatedProduct.getCategory());
 
         return productRepository.save(existingProduct);
     }
