@@ -23,6 +23,13 @@ public class ProductService {
         this.productRepository = serviceRepository;
     }
 
+
+
+    public List<Product> getAllProducts() {
+       return productRepository.findAll();
+    }
+
+
     /**To Sort Product By Order Type.
      * @param alpha
      *              1 is for alphabeticly ordered,
