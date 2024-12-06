@@ -24,6 +24,7 @@ public class Customer {
     private String licensePlate;
     private String city;
 
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Order> orders;
 }
