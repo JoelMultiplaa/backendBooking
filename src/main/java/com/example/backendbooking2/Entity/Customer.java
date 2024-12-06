@@ -19,12 +19,11 @@ public class Customer {
     private Long customerId; // Primærnøgle
 
     private String email;
-    private String phoneNumber;
-    private String city;
     private String name;
+    private String phoneNumber;
     private String licensePlate;
+    private String city;
 
-    @ManyToOne
-    @JoinColumn(name = "booking_id")
-    private Order order;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> orders;
 }
