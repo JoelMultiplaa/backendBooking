@@ -20,10 +20,17 @@ public class ProductController {
         this.productService = productService;
 
     }
+
     @GetMapping
-    public List<Product> getAllProducts(){
-        return productService.getAllProduct();
+    public ResponseEntity<List<Product>> getAllProducts() {
+       List<Product> getAllProducts = productService.getAllProducts();
+       return ResponseEntity.ok(getAllProducts);
     }
+
+    /*@GetMapping("/all/{id}")
+    public List<Product> getAllProducts(@PathVariable Long id){
+        return productService.getAllProductsByAlphabet(id);
+    }*/
 
 
     // CREATE: Opretter en ny service
@@ -36,7 +43,7 @@ public class ProductController {
     // READ: Hent service baseret på ID
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        Optional<Product> product = productService.getAllProductById(id);
+        Optional<Product> product = productService.getProductById(id);
         return ResponseEntity.of(product);
     }
 

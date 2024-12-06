@@ -8,15 +8,15 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@Table(name = "customer")
+@Entity
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerId; // Primærnøgle
+    private Long customerId;
 
     private String email;
     private String name;
@@ -24,6 +24,8 @@ public class Customer {
     private String licensePlate;
     private String city;
 
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Order> orders;
 }
+

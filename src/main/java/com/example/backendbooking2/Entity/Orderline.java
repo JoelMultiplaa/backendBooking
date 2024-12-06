@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -14,14 +16,15 @@ import lombok.Setter;
 public class Orderline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderlineId;
+    private Long orderLineId;
 
     private int quantity;
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "service_id", nullable = false)
-    private Product service; // Sørg for at bruge den korrekte klasse her
+    @JoinColumn(name = "order_id")
+    private Order orders;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

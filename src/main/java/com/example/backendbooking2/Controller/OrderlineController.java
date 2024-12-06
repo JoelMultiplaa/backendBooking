@@ -21,13 +21,14 @@ public class OrderlineController {
     // Opretter en ny orderline
     @PostMapping
     public Orderline createOrderline(@RequestBody Orderline orderline) {
-        return orderlineService.createOrderline(orderline);
+        Orderline createOrderline = orderlineService.createOrderline(orderline);
+        return orderlineService.createOrderline(createOrderline);
     }
 
     // Henter alle orderlines
     @GetMapping
     public List<Orderline> getAllOrderlines() {
-        return orderlineService.getAllOrderline().orElseThrow(() -> new RuntimeException("No orderlines found"));
+        return orderlineService.getAllOrderline();
     }
 
     // Henter en orderline ved ID
@@ -39,7 +40,7 @@ public class OrderlineController {
     // Opdaterer en orderline
     @PutMapping("/{id}")
     public Orderline updateOrderline(@PathVariable Long id, @RequestBody Orderline orderline) {
-        return orderlineService.updateOrderline(id, orderline).orElseThrow(() -> new RuntimeException("Orderline update failed"));
+        return orderlineService.updateOrderline(id, orderline);
     }
 
     // Sletter en orderline
