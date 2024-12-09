@@ -58,7 +58,6 @@ public class BackendBooking2Application {
 
             productRepository.saveAll(products);
         };
-
     }
 
 }
