@@ -4,8 +4,7 @@ public enum Category {
     AMBIENT_BELYSNING,
     STJERNEHIMMEL,
     BLACKOUT,
-    CHROMEDELETE,
     KITS,
-    RAT,
+    INTERIOR,
     RUDETONING;
 }

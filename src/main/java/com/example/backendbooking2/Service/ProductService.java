@@ -29,6 +29,10 @@ public class ProductService {
        return productRepository.findAll();
     }
 
+    public List<Product> findByCategory(Category category) {
+        return productRepository.findAllByCategory(category); // Tilpas denne metode til din repository
+    }
+
 
     /**To Sort Product By Order Type.
      * @param alpha

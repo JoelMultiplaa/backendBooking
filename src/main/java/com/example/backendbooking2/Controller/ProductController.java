@@ -1,5 +1,6 @@
 package com.example.backendbooking2.Controller;
 
+import com.example.backendbooking2.Entity.Category;
 import com.example.backendbooking2.Entity.Product;
 import com.example.backendbooking2.Service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,14 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
 
+    }
+
+    @GetMapping("/Category")
+    public List<Product> getProductsByCategory(@RequestParam(required = false) Category category){
+        if (category != null) {
+            return productService.findByCategory(category); // Implementer denne metode i din service
+        }
+        return productService.getAllProducts();
     }
 
     @GetMapping
