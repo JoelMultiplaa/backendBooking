@@ -26,6 +26,7 @@ public class Order {
     private LocalTime time;
     private boolean isBooked;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "workshop_location")
     private Location workshopLocation;
 
