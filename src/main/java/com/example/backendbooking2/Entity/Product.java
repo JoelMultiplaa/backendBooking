@@ -21,7 +21,15 @@ public class Product {
     private String description;
     private String name;
     private String imageURL;
-    private String category;
+
+    public Product(String description, String name, String imageURL, Category category) {
+        this.description = description;
+        this.name = name;
+        this.imageURL = imageURL;
+        this.category = category;
+    }
+
+    private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Orderline> orderlines;

@@ -22,7 +22,7 @@ public class Customer {
     private String name;
     private String phoneNumber;
     private String licensePlate;
-    private String city;
+    private Location city;
 
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
