@@ -22,18 +22,18 @@ public class ProductController {
 
     }
 
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProducts() {
+       List<Product> getAllProducts = productService.getAllProducts();
+       return ResponseEntity.ok(getAllProducts);
+    }
+
     @GetMapping("/Category")
     public List<Product> getProductsByCategory(@RequestParam(required = false) Category category){
         if (category != null) {
             return productService.findByCategory(category); // Implementer denne metode i din service
         }
         return productService.getAllProducts();
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-       List<Product> getAllProducts = productService.getAllProducts();
-       return ResponseEntity.ok(getAllProducts);
     }
 
     /*@GetMapping("/all/{id}")
