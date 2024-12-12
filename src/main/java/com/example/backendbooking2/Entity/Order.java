@@ -5,11 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,18 +20,14 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-
     private LocalDate date;
-
-
     private LocalTime startTime;
-    private LocalTime endTime;
 
 
-    public Order(LocalDate date, LocalTime startTime, LocalTime endTime, Location workshopLocation) {
+
+    public Order(LocalDate date, LocalTime startTime, Location workshopLocation) {
         this.date = date;
         this.startTime = startTime;
-        this.endTime = endTime;
         this.workshopLocation = workshopLocation;
     }
 
