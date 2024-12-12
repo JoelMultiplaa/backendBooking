@@ -1,7 +1,10 @@
-/*package com.example.backendbooking2.DTO;
+package com.example.backendbooking2.DTO;
 
 
+import com.example.backendbooking2.Entity.Category;
+import com.example.backendbooking2.Entity.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,7 +20,7 @@ public class LoginDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String name;
     private String email;
-    @JsonIgnore
+    private Role role;
     private String password;
 
-}*/
+}
