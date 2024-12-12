@@ -35,7 +35,7 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Unavailable to updtae order id " + orderId));
 
         existOrder.setDate(updateOrder.getDate());
-        existOrder.setTime(updateOrder.getTime());
+       // existOrder.setTime(updateOrder.getTime());
         existOrder.setWorkshopLocation(updateOrder.getWorkshopLocation());
 
         return orderRepository.save(existOrder);
