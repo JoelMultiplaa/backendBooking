@@ -1,6 +1,7 @@
 package com.example.backendbooking2.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "orders")
 
 public class Order {
@@ -23,8 +25,18 @@ public class Order {
     private Long orderId;
 
     private LocalDate date;
-    private LocalTime time;
-    private boolean isBooked;
+
+
+    private LocalTime startTime;
+    private LocalTime endTime;
+
+
+    public Order(LocalDate date, LocalTime startTime, LocalTime endTime, Location workshopLocation) {
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.workshopLocation = workshopLocation;
+    }
 
     @Column(name = "workshop_location")
     private Location workshopLocation;

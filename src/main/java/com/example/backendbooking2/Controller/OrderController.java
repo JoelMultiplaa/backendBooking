@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/order")
+@CrossOrigin
+@RequestMapping("/api/v1")
 public class OrderController {
 
     private final OrderService orderService;
