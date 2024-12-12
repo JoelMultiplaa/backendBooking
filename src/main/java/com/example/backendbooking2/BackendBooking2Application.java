@@ -32,7 +32,7 @@ public class BackendBooking2Application {
             List<Product> products = new ArrayList<>();
 
 
-            orderList.add(new Order( LocalDate.of(2024,12,11), LocalTime.of(13,0), LocalTime.of(15,0), Location.Greve));
+            orderList.add(new Order( LocalDate.of(2024,12,11), LocalTime.of(13,0), Location.Greve));
 
             //Ambient lys
             products.add(new Product("OEM (Original Equipment Manufacturer) ambient belysning tilbyder en balance mellem stil og funktion, da den ofte kan justeres i farve og intensitet for at tilpasse sig førerens præferencer.", "OEM", "https://imgur.com/jty3XH0.png", Category.AMBIENT_BELYSNING));

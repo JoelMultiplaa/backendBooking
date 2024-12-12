@@ -32,8 +32,12 @@ public class OrderController {
     // Opretter en ny order
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody Order order){
-        Order createOrder = orderService.createOrder(order);
-        return ResponseEntity.ok(createOrder);
+        try {
+            Order createorder = orderService.createOrder(order);
+            return new ResponseEntity<>(createorder, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT); // Returnerer 409 hvis der er konflikt
+        }
     }
 
     // Opdaterer en order efter ID
