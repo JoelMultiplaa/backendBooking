@@ -1,13 +1,19 @@
 package com.example.backendbooking2;
 
 import com.example.backendbooking2.Entity.Category;
+import com.example.backendbooking2.Entity.Location;
+import com.example.backendbooking2.Entity.Order;
 import com.example.backendbooking2.Entity.Product;
+import com.example.backendbooking2.Repository.OrderRepository;
 import com.example.backendbooking2.Repository.ProductRepository;
+import com.example.backendbooking2.Repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +25,14 @@ public class BackendBooking2Application {
     }
 
     @Bean
-    public CommandLineRunner importData (ProductRepository productRepository){
+    public CommandLineRunner importData (ProductRepository productRepository, OrderRepository orderRepository){
 
         return (args) -> {
+            List<Order> orderList = new ArrayList<>();
             List<Product> products = new ArrayList<>();
+
+
+            orderList.add(new Order( LocalDate.of(2024,12,11), LocalTime.of(13,0), LocalTime.of(15,0), Location.Greve));
 
             //Ambient lys
             products.add(new Product("OEM (Original Equipment Manufacturer) ambient belysning tilbyder en balance mellem stil og funktion, da den ofte kan justeres i farve og intensitet for at tilpasse sig førerens præferencer.", "OEM", "https://imgur.com/jty3XH0.png", Category.AMBIENT_BELYSNING));
@@ -57,6 +67,8 @@ public class BackendBooking2Application {
 
 
             productRepository.saveAll(products);
+
+            orderRepository.saveAll(orderList);
         };
     }
 
