@@ -23,6 +23,7 @@ public class Product {
     private String description;
     private String name;
     private String imageURL;
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     public Product(String description, String name, String imageURL, Category category) {

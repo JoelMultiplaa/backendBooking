@@ -13,4 +13,8 @@ public class GenericResponse<T> {
     int status;
     String message;
     T data;
+    public GenericResponse(String message, T data) {
+        this.message = message;
+        this.data = data;
+    }
 }
