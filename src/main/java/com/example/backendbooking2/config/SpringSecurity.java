@@ -27,43 +27,48 @@ public class SpringSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/v1/authCred/signup","/api/v1/authCred/login")) // Exclude CSRF protection for /signup
-                .authorizeHttpRequests(authorize -> authorize
+                .csrf(csrf -> csrf.disable())
+                        .authorizeHttpRequests(authorize -> authorize
                         //Login Controller Endpoints
-                        .requestMatchers(HttpMethod.POST,"/authCred/signup","/authCred/login").permitAll()
-                        .requestMatchers(HttpMethod.PUT,"/authCred/update/{id}").authenticated()
-                        .requestMatchers(HttpMethod.DELETE,"/authCred/delete/{id}").authenticated()
+                        .requestMatchers(HttpMethod.POST,"/api/v1/authCred/signup","/api/v1/authCred/login").permitAll()
+                        .requestMatchers(HttpMethod.PUT,"/api/v1/authCred/update/").authenticated()
+                        .requestMatchers(HttpMethod.DELETE,"/api/v1/authCred/delete/").authenticated()
                         //Customer Controller Endpoints
-                        .requestMatchers(HttpMethod.GET,"/customer","/customer/{id}").authenticated()
-                        .requestMatchers(HttpMethod.POST,"/customer").authenticated()
-                        .requestMatchers(HttpMethod.PUT,"/customer/{id}").authenticated()
-                        .requestMatchers(HttpMethod.DELETE,"/customer/{id}").authenticated()
+                        .requestMatchers("/api/customer/**").authenticated()
+
+                        /*.requestMatchers(HttpMethod.GET,"/api/customer","/api/customer/").authenticated()
+                        .requestMatchers(HttpMethod.POST,"/api/customer").authenticated()
+                        .requestMatchers(HttpMethod.PUT,"/api/customer/").authenticated()
+                        .requestMatchers(HttpMethod.DELETE,"/api/customer/").authenticated()*/
+
                         //Order Controller Endpoints
-                        .requestMatchers(HttpMethod.GET,"/order").authenticated()
-                        .requestMatchers(HttpMethod.POST,"/order").permitAll()
-                        .requestMatchers(HttpMethod.PUT,"/order/{id}").authenticated()
-                        .requestMatchers(HttpMethod.DELETE,"/order/{id}").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/api/v1").authenticated()
+                        .requestMatchers(HttpMethod.POST,"/api/v1").permitAll()
+                        .requestMatchers(HttpMethod.PUT,"/api/v1/").authenticated()
+                        .requestMatchers(HttpMethod.DELETE,"/api/v1/").authenticated()
                         //Orderline Controller Endpoints
-                        .requestMatchers(HttpMethod.GET,"/orderlines").authenticated()
-                        .requestMatchers(HttpMethod.GET,"/orderlines/{id}").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/orderlines").permitAll()
-                        .requestMatchers(HttpMethod.PUT,"/orderlines/{id}").authenticated()
-                        .requestMatchers(HttpMethod.DELETE,"/orderlines/{id}").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/api/orderlines").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/api/orderlines/").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/orderlines").permitAll()
+                        .requestMatchers(HttpMethod.PUT,"/api/orderlines/").authenticated()
+                        .requestMatchers(HttpMethod.DELETE,"/api/orderlines/").authenticated()
                         //Product Controller Endpoints
-                        .requestMatchers(HttpMethod.GET,"/product").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/product/Category").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/product/{id}").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/product").authenticated()
-                        .requestMatchers(HttpMethod.PUT,"/product/{id}").authenticated()
-                        .requestMatchers(HttpMethod.DELETE,"/product/{id}").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/api/product").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/product/Category").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/product/").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/product").authenticated()
+                        .requestMatchers(HttpMethod.PUT,"/api/product/").authenticated()
+                        .requestMatchers(HttpMethod.DELETE,"/api/product/").authenticated()
                         //User Controller Endpoints
-                        .requestMatchers(HttpMethod.GET,"/user").authenticated()
-                        .requestMatchers(HttpMethod.GET,"/user/{id}").authenticated()
-                        .requestMatchers(HttpMethod.POST,"/user").authenticated()
-                        .requestMatchers(HttpMethod.PUT,"/user/{id}").authenticated()
-                        .requestMatchers(HttpMethod.DELETE,"/user/{id}").authenticated()
-                        //All Forgotten, Endpoint will be protected.
+                        .requestMatchers(HttpMethod.GET,"/api/user").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/api/user/").authenticated()
+                        .requestMatchers(HttpMethod.POST,"/api/user").authenticated()
+                        .requestMatchers(HttpMethod.PUT,"/api/user/").authenticated()
+                        .requestMatchers(HttpMethod.DELETE,"/api/user/").authenticated()
+                        //Anything coming in from, browser side is permited.
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+
+        //All Forgotten, Endpoint will be protected.
                         .anyRequest().authenticated()
                 );
         return http.build();

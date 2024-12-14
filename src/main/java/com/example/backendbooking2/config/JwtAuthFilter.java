@@ -1,6 +1,5 @@
 package com.example.backendbooking2.config;
 
-import com.example.backendbooking2.Service.LoginService;
 import com.example.backendbooking2.util.JWTutil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,34 +16,29 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthFilter extends OncePerRequestFilter{
+public class JwtAuthFilter extends OncePerRequestFilter {
 
-        private final JWTutil jwtUtil;
-        private final LoginService loginService;
+    private final JWTutil jwtUtil;
 
-        @Override
-        protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-                throws ServletException, IOException {
-            String authHeader = request.getHeader("Authorization");
-            String token = null;
-            String email = null;
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        String authHeader = request.getHeader("Authorization");
+        String token = null;
+        String email = null;
 
-            if (authHeader != null && authHeader.startsWith("Bearer ")) {
-                token = authHeader.substring(7);
-                email = jwtUtil.extractUsername(token);
-            }
-
-            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                if (jwtUtil.validateToken(token)) {
-                    var userDetails = loginService.getUserOrEmail(null,email);
-                    var authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
-                }
-            }
-
-            filterChain.doFilter(request, response);
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);
+            email = jwtUtil.extractUsername(token);
         }
+
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (jwtUtil.validateToken(token)) {
+                var authToken = new UsernamePasswordAuthenticationToken(email, null, null);
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        }
+
+        filterChain.doFilter(request, response);
     }
-
-
+}
