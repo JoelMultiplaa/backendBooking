@@ -1,31 +1,33 @@
 package com.example.backendbooking2;
 
-import com.example.backendbooking2.Entity.Category;
-import com.example.backendbooking2.Entity.Location;
-import com.example.backendbooking2.Entity.Order;
-import com.example.backendbooking2.Entity.Product;
+import com.example.backendbooking2.DTO.LoginDto;
+import com.example.backendbooking2.Entity.*;
 import com.example.backendbooking2.Repository.OrderRepository;
 import com.example.backendbooking2.Repository.ProductRepository;
 import com.example.backendbooking2.Repository.UserRepository;
+import com.example.backendbooking2.Service.LoginService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @SpringBootApplication
 public class BackendBooking2Application {
-
+    private final PasswordEncoder encoder;
     public static void main(String[] args) {
         SpringApplication.run(BackendBooking2Application.class, args);
     }
 
     @Bean
-    public CommandLineRunner importData (ProductRepository productRepository, OrderRepository orderRepository){
+    public CommandLineRunner importData (ProductRepository productRepository, OrderRepository orderRepository, UserRepository userRepository){
 
         return (args) -> {
             List<Order> orderList = new ArrayList<>();
@@ -64,8 +66,9 @@ public class BackendBooking2Application {
             products.add(new Product("Moderat toning, der giver en sofistikeret stil og reducerer solens varme uden at påvirke synligheden markant.", "30% Rudetoning","https://imgur.com/IlfZiLy.png", Category.RUDETONING));
             products.add(new Product("Let toning, der giver bilen et moderne look og stadig overholder mange lovgivninger.", "35% Rudetoning","https://imgur.com/IlfZiLy.png", Category.RUDETONING));
             products.add(new Product("Minimal toning, der giver diskret UV-beskyttelse og en let dæmpning af lysindtrængning.", "50% Rudetoning","https://imgur.com/IlfZiLy.png", Category.RUDETONING));
-
-
+            //Login admin
+            User user = new User("Harun12","harun@gmail.com", encoder.encode( "HarunKodeOrd123!@"),Role.ADMIN);
+            userRepository.save(user);
             productRepository.saveAll(products);
 
             orderRepository.saveAll(orderList);

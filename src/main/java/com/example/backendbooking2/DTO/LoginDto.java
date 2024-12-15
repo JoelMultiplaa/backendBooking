@@ -18,9 +18,9 @@ import lombok.Setter;
 public class LoginDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String name;
+
     private String email;
-    private Role role;
+
     private String password;
 
 }
