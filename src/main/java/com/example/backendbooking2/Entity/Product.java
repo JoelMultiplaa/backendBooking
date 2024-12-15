@@ -1,5 +1,7 @@
 package com.example.backendbooking2.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +35,7 @@ public class Product {
         this.category = category;
     }
 
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+@JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Orderline> orderlines;
 }

@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/authCred")
@@ -30,24 +33,27 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<GenericResponse<AuthToken>> login(@RequestBody LoginDto dto) {
-        if (userName.equals(dto.getName()) && userPassword.equals(dto.getPassword())) {
-            String token = jwtUtil.generateToken(userName);
-            return ResponseEntity.ok(new GenericResponse<>(200, "Login Successful", new AuthToken(token)));
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(new GenericResponse<>("Invalid Credentials", null));
+        System.out.println("Received login request: " + dto.getEmail());
+        Optional<AuthToken> token = loginService.validateLogin(dto);
+        return token.map(authToken ->
+                        ResponseEntity.ok(new GenericResponse<>(200, "Login Successful", authToken)))
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(new GenericResponse<>("Invalid Credentials", null)));
     }
+
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody LoginDto signUpData){
-       return loginService.signUpUser(signUpData)
-               .map(successFull -> ResponseEntity
-                       .ok(new GenericResponse<>(201,"User Was Created Successfully!!",successFull)))
-               .orElseGet(() -> ResponseEntity
-                       .status(HttpStatus.NOT_ACCEPTABLE)
-                       .body(new GenericResponse<>("Invalid Input", null)));
+    public ResponseEntity<GenericResponse<User>> signUp(@RequestBody LoginDto signUpData) {
+        return loginService.signUpUser(signUpData)
+                .map(user -> ResponseEntity
+                        .status(HttpStatus.CREATED)
+                        .body(new GenericResponse<>(201, "User created successfully", user)))
+                .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new GenericResponse<>("User already exists", null)));
     }
+
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateCredentials(@PathVariable Long id, @RequestBody LoginDto updatedData){
 

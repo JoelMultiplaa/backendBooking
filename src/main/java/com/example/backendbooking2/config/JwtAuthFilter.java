@@ -23,22 +23,39 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        // Skip JWT validation for the login endpoint
+        if (request.getServletPath().equals("/api/v1/authCred/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String authHeader = request.getHeader("Authorization");
         String token = null;
         String email = null;
 
+        // Extract the token from the Authorization header
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            email = jwtUtil.extractUsername(token);
+            try {
+                email = jwtUtil.extractUsername(token); // Extract email from the token
+            } catch (Exception e) {
+                logger.error("Error extracting email from token: " + e.getMessage());
+            }
         }
 
+        // If email is extracted and no authentication exists in the SecurityContext
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            // Validate the token
             if (jwtUtil.validateToken(token)) {
+                // Set authentication in SecurityContextHolder
                 var authToken = new UsernamePasswordAuthenticationToken(email, null, null);
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
 
+        // Continue the filter chain
         filterChain.doFilter(request, response);
     }
+
 }
