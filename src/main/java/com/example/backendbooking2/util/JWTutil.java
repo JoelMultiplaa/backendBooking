@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 import java.util.Date;
+/*
 
 @Component
 public class JWTutil {
@@ -43,3 +44,4 @@ public class JWTutil {
                 .getSubject();
     }
 }
+*/

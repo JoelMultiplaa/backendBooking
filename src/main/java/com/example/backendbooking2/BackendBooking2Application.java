@@ -5,7 +5,7 @@ import com.example.backendbooking2.Entity.*;
 import com.example.backendbooking2.Repository.OrderRepository;
 import com.example.backendbooking2.Repository.ProductRepository;
 import com.example.backendbooking2.Repository.UserRepository;
-import com.example.backendbooking2.Service.LoginService;
+//import com.example.backendbooking2.Service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

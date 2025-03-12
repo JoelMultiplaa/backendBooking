@@ -1,5 +1,5 @@
 package com.example.backendbooking2.config;
-
+/*
 import com.example.backendbooking2.util.JWTutil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -59,3 +59,4 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 
 }
+*/
