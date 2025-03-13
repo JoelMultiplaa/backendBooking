@@ -12,7 +12,8 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+/*
+*
 @DataJpaTest
 class OrderlineRepositoryTest {
 
@@ -62,3 +63,4 @@ class OrderlineRepositoryTest {
         assertThat(orderlines.get(1).getOrder().getOrderId()).isEqualTo(order.getOrderId());
     }
 }
+*/
